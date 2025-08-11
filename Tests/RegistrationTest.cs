@@ -35,17 +35,19 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
             string password = TestDataGenerator.GetDefaultPassword();
 
             registrationPage.FillForm(email, password);
+
+            FileHelper.SaveRegistredUserToJsonFile(email, password);
+
             registrationPage.Submit();
 
-            Thread.Sleep(2000); // Lepiej zastąpić WebDriverWait, ale dla przykładu OK
-
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            IWebElement element = wait.Until(driver => driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy')]")));
-            Assert.IsNotNull(element, "Rejestracja nie powiodła się.");
-            //element.Click();
 
-            //IWebElement successMessage = _driver.FindElement(By.XPath("//*[contains(text(),'Dziękujemy, zostałeś automatycznie zalogowany')]"));
-            //Assert.IsNotNull(successMessage, "Rejestracja nie powiodła się.");
+            IWebElement successMessage = wait.Until(driver => driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy, zostałeś automatycznie zalogowany')]")));
+            Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja nie zakończyła się sukcesem.");
+
+            registrationPage.CloseConfirmationPopup();
+
+            registrationPage.Logout();
         }
 
         [TestCleanup]

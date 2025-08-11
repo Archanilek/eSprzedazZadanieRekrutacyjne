@@ -1,0 +1,40 @@
+﻿using eSprzedazZadanieRekrutacyjne.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.Json;
+
+namespace eSprzedazZadanieRekrutacyjne.Utils
+{
+    internal class FileHelper
+    {
+        private static readonly string ResultsFolder = Path.Combine(Directory.GetCurrentDirectory(), "UsedData");
+        private static readonly string JsonFilePath = Path.Combine(ResultsFolder, "RegistredUsers.json");
+
+        public static void SaveRegistredUserToJsonFile (string email, string passsword)
+        {
+            if (!Directory.Exists(ResultsFolder)) 
+                Directory.CreateDirectory(ResultsFolder);
+            
+            List<RegistrationData> registredUserList = new List<RegistrationData>();
+
+            if (File.Exists(JsonFilePath))
+            {
+                String existingJson = File.ReadAllText(JsonFilePath);
+                
+                //sprawdzenie czy wczytane dane nie sa nullem/białymi znakami/pustym stringiem ""
+                if(!string.IsNullOrWhiteSpace(JsonFilePath))
+                {
+                    registredUserList = JsonSerializer.Deserialize<List<RegistrationData>>(existingJson);
+                }
+            }
+            registredUserList.Add(new RegistrationData { Email = email, CreatedAt = DateTime.Now, Password = passsword, EncryptedPassword = EncryptedHepler.EncryptStringAES(passsword), DecryptedPassword=EncryptedHepler.DecryptStringAES(EncryptedHepler.EncryptStringAES(passsword)) });
+
+            JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true};
+            String json = JsonSerializer.Serialize(registredUserList, options);
+            File.WriteAllText(JsonFilePath, json);
+        }
+    }
+}

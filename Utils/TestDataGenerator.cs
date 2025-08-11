@@ -15,7 +15,7 @@ namespace eSprzedazZadanieRekrutacyjne.Utils
 
         public static string GetDefaultPassword()
         {
-            return "Test12345!";
+            return Guid.NewGuid().ToString();
         }
     }
 }
