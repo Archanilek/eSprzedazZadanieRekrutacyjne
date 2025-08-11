@@ -25,7 +25,7 @@ namespace eSprzedazZadanieRekrutacyjne.Utils
                 String existingJson = File.ReadAllText(JsonFilePath);
                 
                 //sprawdzenie czy wczytane dane nie sa nullem/białymi znakami/pustym stringiem ""
-                if(!string.IsNullOrWhiteSpace(JsonFilePath))
+                if(!string.IsNullOrWhiteSpace(existingJson))
                 {
                     registredUserList = JsonSerializer.Deserialize<List<RegistrationData>>(existingJson);
                 }
