@@ -24,8 +24,24 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
             options.AddArgument("--start-maximized");
             _driver = new ChromeDriver(options);
         }
-
+        
         [TestMethod]
+        [Priority(1)]
+        public void CheckingAvailabilityOfFieldsDuringRegistration()
+        {
+            RegistrationPage registrationPage = new RegistrationPage(_driver);
+            registrationPage.Navigate();
+
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            Assert.IsTrue(wait.Until(driver => registrationPage.EmailInput.Displayed), "Pole email nie jest widoczne.");
+            Assert.IsTrue(wait.Until(driver => registrationPage.PasswordInput.Displayed), "Pole hasło jest widoczne.");
+            Assert.IsTrue(wait.Until(driver => registrationPage.ConfirmPasswordInput.Displayed), "Pole powtórz hasło jest widoczne");
+            Assert.IsTrue(wait.Until(driver => registrationPage.AcceptTermsCheckbox.Displayed), "Checkbox akceptacji warunków jest widoczne");
+            Assert.IsTrue(wait.Until(driver => registrationPage.RegisterButton.Displayed), "Przycisk rejestracji jest widoczny");
+        }
+        
+        [TestMethod]
+        [Priority(2)]
         public void SuccessfulRegistrationTest()
         {
             RegistrationPage registrationPage = new RegistrationPage(_driver);

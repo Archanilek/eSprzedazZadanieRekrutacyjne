@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -18,14 +17,14 @@ namespace eSprzedazZadanieRekrutacyjne.Pages
             _driver = driver;
         }
 
-        private IWebElement EmailInput => _driver.FindElement(By.Name("email"));
-        private IWebElement PasswordInput => _driver.FindElement(By.Name("password"));
-        private IWebElement ConfirmPasswordInput => _driver.FindElement(By.Name("password_confirm"));
-        private IWebElement AcceptTermsCheckbox => _driver.FindElement(By.XPath("//div[@id='maincontent']/div/div/form/div/div/label/div[2]"));
-        private IWebElement RegisterButton => _driver.FindElement(By.CssSelector("button[type='submit']"));
-        private IWebElement CloseButtonInConfirmationRegistrationPopUp => _driver.FindElement(By.CssSelector(".l-popup__message-close.at-message-close.js-close-popup"));
-        private IWebElement AccountButton => _driver.FindElement(By.Id("header-account"));
-        private IWebElement LogOutButton => _driver.FindElement(By.XPath("//a[contains(@href, 'wylogowanie')]"));
+        public IWebElement EmailInput => _driver.FindElement(By.Name("email"));
+        public IWebElement PasswordInput => _driver.FindElement(By.Name("password"));
+        public IWebElement ConfirmPasswordInput => _driver.FindElement(By.Name("password_confirm"));
+        public IWebElement AcceptTermsCheckbox => _driver.FindElement(By.XPath("//div[@id='maincontent']/div/div/form/div/div/label/div[2]"));
+        public IWebElement RegisterButton => _driver.FindElement(By.CssSelector("button[type='submit']"));
+        public IWebElement CloseButtonInConfirmationRegistrationPopUp => _driver.FindElement(By.CssSelector(".l-popup__message-close.at-message-close.js-close-popup"));
+        public IWebElement AccountButton => _driver.FindElement(By.Id("header-account"));
+        public IWebElement LogOutButton => _driver.FindElement(By.XPath("//a[contains(@href, 'wylogowanie')]"));
 
 
         public void Navigate()
