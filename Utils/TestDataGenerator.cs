@@ -8,5 +8,14 @@ namespace eSprzedazZadanieRekrutacyjne.Utils
 {
     internal class TestDataGenerator
     {
+        public static string GenerateUniqueEmail()
+        {
+            return $"testuser_{Guid.NewGuid():N}@example.com";
+        }
+
+        public static string GetDefaultPassword()
+        {
+            return "Test12345!";
+        }
     }
 }
