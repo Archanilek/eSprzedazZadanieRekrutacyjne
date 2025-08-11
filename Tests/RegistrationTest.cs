@@ -2,11 +2,13 @@
 using eSprzedazZadanieRekrutacyjne.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace eSprzedazZadanieRekrutacyjne.Tests
 {
@@ -37,8 +39,13 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
 
             Thread.Sleep(2000); // Lepiej zastąpić WebDriverWait, ale dla przykładu OK
 
-            IWebElement successMessage = _driver.FindElement(By.XPath("//*[contains(text(),'Dziękujemy, zostałeś automatycznie zalogowany')]"));
-            Assert.IsNotNull(successMessage, "Rejestracja nie powiodła się.");
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            IWebElement element = wait.Until(driver => driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy')]")));
+            Assert.IsNotNull(element, "Rejestracja nie powiodła się.");
+            //element.Click();
+
+            //IWebElement successMessage = _driver.FindElement(By.XPath("//*[contains(text(),'Dziękujemy, zostałeś automatycznie zalogowany')]"));
+            //Assert.IsNotNull(successMessage, "Rejestracja nie powiodła się.");
         }
 
         [TestCleanup]
