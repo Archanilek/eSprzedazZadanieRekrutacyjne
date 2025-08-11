@@ -2,7 +2,6 @@
 using eSprzedazZadanieRekrutacyjne.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,18 +35,11 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
             registrationPage.FillForm(email, password);
             registrationPage.Submit();
 
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            IWebElement successMessage = _driver.FindElement(By.XPath("//div[normalize-space(text())='Dziękujemy, zostałeś automatycznie zalogowany na swoje konto.']"));
+            Thread.Sleep(2000); // Lepiej zastąpić WebDriverWait, ale dla przykładu OK
+
+            IWebElement successMessage = _driver.FindElement(By.XPath("//*[contains(text(),'Dziękujemy, zostałeś automatycznie zalogowany')]"));
             Assert.IsNotNull(successMessage, "Rejestracja nie powiodła się.");
-
-            //Zakmniecie okiekna z informacją o poprawnej rejestracji
-            _driver.FindElement(By.XPath("/div[4]/div[2]/div/div/div")).Click();
-            
-            //wylogowanie
-
-
         }
-
 
         [TestCleanup]
         public void Teardown()

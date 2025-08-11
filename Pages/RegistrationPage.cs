@@ -22,6 +22,9 @@ namespace eSprzedazZadanieRekrutacyjne.Pages
         private IWebElement ConfirmPasswordInput => _driver.FindElement(By.Name("password_confirm"));
         private IWebElement AcceptTermsCheckbox => _driver.FindElement(By.XPath("//div[@id='maincontent']/div/div/form/div/div/label/div[2]"));
         private IWebElement RegisterButton => _driver.FindElement(By.CssSelector("button[type='submit']"));
+        private IWebElement AccountButton => _driver.FindElement(By.Id("header - account"));
+        private IWebElement LogOutButton => _driver.FindElement(By.XPath("//span[text()='Wyloguj się']"));
+
 
         public void Navigate()
         {
@@ -38,6 +41,12 @@ namespace eSprzedazZadanieRekrutacyjne.Pages
         public void Submit()
         {
             RegisterButton.Click();
+        }
+        public void Logout()
+        {
+            AccountButton.Click();
+            LogOutButton.Click();
+
         }
     }
 }
