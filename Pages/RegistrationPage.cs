@@ -25,6 +25,7 @@ namespace eSprzedazZadanieRekrutacyjne.Pages
         public IWebElement CloseButtonInConfirmationRegistrationPopUp => _driver.FindElement(By.CssSelector(".l-popup__message-close.at-message-close.js-close-popup"));
         public IWebElement AccountButton => _driver.FindElement(By.Id("header-account"));
         public IWebElement LogOutButton => _driver.FindElement(By.XPath("//a[contains(@href, 'wylogowanie')]"));
+        public IWebElement RegistrationPopUp => _driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy, zostałeś automatycznie zalogowany')]"));
 
 
         public void Navigate()
