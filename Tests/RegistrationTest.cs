@@ -60,7 +60,7 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
             IWebElement successMessage = wait.Until(driver => driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy, zostałeś automatycznie zalogowany')]")));
-            Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja nie zakończyła się sukcesem.");
+            Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja zakończyła się sukcesem.");
 
             registrationPage.CloseConfirmationPopup();
             registrationPage.Logout();
@@ -81,7 +81,7 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
                 WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
                 IWebElement successMessage = wait.Until(driver => driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy, zostałeś automatycznie zalogowany')]")));
-                Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja nie zakończyła się sukcesem.");
+                Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja zakończyła się sukcesem.");
                 
                 registrationPage.CloseConfirmationPopup();
                 registrationPage.Logout();
