@@ -1,4 +1,5 @@
-﻿using eSprzedazZadanieRekrutacyjne.Pages;
+﻿using eSprzedazZadanieRekrutacyjne.Models;
+using eSprzedazZadanieRekrutacyjne.Pages;
 using eSprzedazZadanieRekrutacyjne.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -62,9 +63,31 @@ namespace eSprzedazZadanieRekrutacyjne.Tests
             Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja nie zakończyła się sukcesem.");
 
             registrationPage.CloseConfirmationPopup();
-
             registrationPage.Logout();
         }
+
+        [TestMethod]
+        [Priority(3)]
+        public void SuccessfulRegistrationFromJson()
+        {
+            RegistrationPage registrationPage = new RegistrationPage(_driver);
+            
+            foreach (RegistrationData user in FileHelper.LoadRegisteredUsersFromJsonFile())
+            {
+                registrationPage.Navigate();
+                registrationPage.FillForm(user.Email, user.EncryptedPassword);
+                registrationPage.Submit();
+
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+
+                IWebElement successMessage = wait.Until(driver => driver.FindElement(By.XPath("//div[contains(text(), 'Dziękujemy, zostałeś automatycznie zalogowany')]")));
+                Assert.IsTrue(successMessage.Text.Contains("Dziękujemy, zostałeś automatycznie zalogowany"), "Rejestracja nie zakończyła się sukcesem.");
+                
+                registrationPage.CloseConfirmationPopup();
+                registrationPage.Logout();
+            }    
+        }
+
 
         [TestCleanup]
         public void Teardown()
